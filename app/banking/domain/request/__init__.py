@@ -1,7 +1,11 @@
 from .ReverseTransactionRequestBody import ReverseTransactionRequestBody
-from .BankingDepositRequestBody import BankingDepositRequestBody
+from .BankingDepositWithdrawRequestBody import BankingDepositWithdrawRequestBody
+from .CreateAccountRequestBody import CreateAccountRequestBody
+from .UpdateAccountRequestBody import UpdateAccountRequestBody
 
 __all__ = [
     "ReverseTransactionRequestBody",
-    "BankingDepositRequestBody"
+    "BankingDepositWithdrawRequestBody",
+    "CreateAccountRequestBody",
+    "UpdateAccountRequestBody",
 ]

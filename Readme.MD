@@ -4,3 +4,4 @@
 - Error Handling: try-catch.
 - Designed for scalability.
 - API documentation
+- Soft deletes

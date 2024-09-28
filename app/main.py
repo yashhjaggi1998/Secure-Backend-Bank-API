@@ -11,13 +11,25 @@ from app.auth.oauth2 import fake_users_db
 
 from app.banking.controllers import account_router, ledger_router
 
+from .database import engine, _dbBase
 
 app = FastAPI()
 
+async def initialize_db():
+    async with engine.begin() as conn:
+        await conn.run_sync(_dbBase.metadata.create_all)
+
+async def shutdown_db():
+    await engine.dispose()
 
 # Include the router instance in the app
 app.include_router(account_router, prefix = "/banking/accounts", tags = ["Accounts"])
 app.include_router(ledger_router, prefix = "/banking/ledger", tags = ["Ledger"])
+
+# Add event handlers for startup and shutdown
+app.add_event_handler("startup", initialize_db)
+app.add_event_handler("shutdown", shutdown_db)
+
 
 # for security
 @app.post("/token")
@@ -35,14 +47,9 @@ async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm,
     )
     return Token(access_token=access_token, token_type="bearer")
 
-
 @app.get("/")
 def read_root(token: Annotated[str, Depends(oauth2_scheme)]):
     return {
         "message": "Welcome to the Banking API",
         "oauth_token": token
     }
-
-@app.get("/users/me")
-async def read_users_me(current_user: User = Depends(get_current_active_user)):
-    return current_user
