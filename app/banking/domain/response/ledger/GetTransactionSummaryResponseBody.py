@@ -6,4 +6,3 @@ class GetTransactionSummaryResponseBody(BaseModel):
     total_withdrawals: Optional[float] = None
     number_of_deposits: Optional[float] = None
     number_of_withdrawals: Optional[float] = None
-    error: Optional[str] = None

@@ -11,6 +11,7 @@ async def create_account(account_name: str, balance: int, db: AsyncSession = Dep
     db_account = await db.execute(select(Account.id).order_by(Account.id.desc()).limit(1))
     account_id = db_account.fetchone()[0] + 1
 
+    print(f"Creating account with id: {account_id}")
     account = Account(
         id = account_id, 
         name = account_name, 

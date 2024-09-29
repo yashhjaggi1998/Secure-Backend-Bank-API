@@ -1,5 +1,8 @@
+from typing import Union
 from fastapi import APIRouter, Depends
+from fastapi.responses import JSONResponse
 
+from app.banking.domain.response.error_response import ErrorResponse
 from app.banking.service.account_service import AccountService
 
 from app.banking.domain.request import *
@@ -16,29 +19,35 @@ router = APIRouter()
 
 account_service = AccountService()
 
-@router.get("/{account_id}", response_model = AccountResponseBody )
+@router.get("/{account_id}", response_model = Union[AccountResponseBody, ErrorResponse])
 async def get_account(account_id: int, current_user: User = Depends(get_current_active_user), db: AsyncSession = Depends(get_db)):
     try:
         account = await account_service.get_account(account_id, db)
         return account
     except Exception as e:
-        return {"error": str(e)}
+        error_response = ErrorResponse(
+            error_code = 404, 
+            message = str(e)
+        )
+        return JSONResponse(status_code = error_response.error_code, content = error_response.dict())
 
 
-@router.post("/create", response_model = AccountResponseBody)
+@router.post("/create", response_model = Union[AccountResponseBody, ErrorResponse])
 async def create_account(request: CreateAccountRequestBody, current_user: User = Depends(get_current_active_user), db: AsyncSession = Depends(get_db)):
     try:
-        if not request.name or not request.balance:
-            return {"error": "Invalid request body"}
-    
         params = (request.name, request.balance)
+        print(f"Creating account with name: {request.name}")
         account = await account_service.create_account(params, db)
         return account
     except Exception as e:
-        return {"error": str(e)}
+        error_response = ErrorResponse(
+            error_code = 404, 
+            message = str(e)
+        )
+        return JSONResponse(status_code = error_response.error_code, content = error_response.dict())
 
 
-@router.patch("/update", response_model = AccountResponseBody)
+@router.patch("/update", response_model = Union[AccountResponseBody, ErrorResponse])
 async def update_account(request: UpdateAccountRequestBody, current_user: User = Depends(get_current_active_user), db: AsyncSession = Depends(get_db)):
     try:
         if not request.account_id:
@@ -46,7 +55,7 @@ async def update_account(request: UpdateAccountRequestBody, current_user: User =
         
         field_params = []
         for key, value in request.model_dump().items():
-            if key != "account_id":
+            if key != "account_id" and value is not None:
                 field_params.append((key, value))
         
         account = await account_service.update_account(request.account_id, field_params, db)
@@ -56,7 +65,11 @@ async def update_account(request: UpdateAccountRequestBody, current_user: User =
         
         return account
     except Exception as e:
-        return {"error": str(e)}
+        error_response = ErrorResponse(
+            error_code = 404, 
+            message = str(e)
+        )
+        return JSONResponse(status_code = error_response.error_code, content = error_response.dict())
 
 
 @router.delete("/delete/{account_id}")
@@ -71,7 +84,7 @@ async def delete_account(account_id: int, current_user: User = Depends(get_curre
         return {"error": str(e)}
 
 
-@router.post("/deposit", response_model = AccountResponseBody)
+@router.post("/deposit", response_model = Union[AccountResponseBody, ErrorResponse])
 async def deposit(request: BankingDepositWithdrawRequestBody, current_user: User = Depends(get_current_active_user), db: AsyncSession = Depends(get_db)):
     try:
         account_id, amount = request.account_id, request.amount
@@ -82,9 +95,14 @@ async def deposit(request: BankingDepositWithdrawRequestBody, current_user: User
     
         return account
     except Exception as e:
-        return {"error": str(e)}
+        error_response = ErrorResponse(
+            error_code = 404, 
+            message = str(e)
+        )
+        return JSONResponse(status_code = error_response.error_code, content = error_response.dict())
     
-@router.post("/withdraw", response_model = AccountResponseBody)
+    
+@router.post("/withdraw", response_model = Union[AccountResponseBody, ErrorResponse])
 async def withdraw(request: BankingDepositWithdrawRequestBody, current_user: User = Depends(get_current_active_user), db: AsyncSession = Depends(get_db)):
     try:
         account_id, amount = request.account_id, request.amount
@@ -95,5 +113,9 @@ async def withdraw(request: BankingDepositWithdrawRequestBody, current_user: Use
         account = await account_service.withdraw(account_id, amount, db)
         return account
     except Exception as e:
-        return {"error": str(e)}
+        error_response = ErrorResponse(
+            error_code = 404, 
+            message = str(e)
+        )
+        return JSONResponse(status_code = error_response.error_code, content = error_response.dict())
     
