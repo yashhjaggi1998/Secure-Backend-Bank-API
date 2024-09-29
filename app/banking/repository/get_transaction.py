@@ -21,7 +21,7 @@ async def get_transactions_by_account_id(account_id: int, db: AsyncSession) -> L
     return transactions
 
 async def get_transactions_by_type(transaction_type: str, db: AsyncSession):
-    transaction_type = transaction_type.upper()
     result = await db.execute(select(Transaction).where(Transaction.type == transaction_type))
+    print("\nresult: ", result)
     transactions = result.scalars().all()
     return transactions

@@ -77,7 +77,7 @@ class LedgerService:
     
 
     async def get_transactions_by_type(self, transaction_type: str, db: AsyncSession) -> List[Transaction]:
-        if transaction_type not in [TransactionType.DEPOSIT.value, TransactionType.WITHDRAWAL.value]:
+        if transaction_type not in [TransactionType.DEPOSIT, TransactionType.WITHDRAWAL]:
             raise Exception("Invalid transaction type")
         
         all_transactions = await get_transactions_by_type(transaction_type, db)

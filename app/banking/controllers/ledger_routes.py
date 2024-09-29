@@ -48,6 +48,7 @@ async def get_transactions_by_account_id(account_id: int, current_user: User = D
 @router.get("/type/{transaction_type}", response_model = Union[List[Transaction], ErrorResponse])
 async def get_transactions_by_type(transaction_type: str, current_user: User = Depends(get_current_active_user), db: AsyncSession = Depends(get_db)):
     try:
+        print("\ntransaction_type: ", transaction_type)
         all_transactions = await ledgerService.get_transactions_by_type(transaction_type, db)
         return all_transactions
     except Exception as e:
