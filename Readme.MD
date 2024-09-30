@@ -1,16 +1,6 @@
 ## Overview
 - This project is a simulation of real-world bank application. It follows the best practices needed to design scalable, secure and efficient backend API endpoints in FastAPI (python).
 
-## Architecture
-
-![screenshot](./Onion_Arch.png)
-
-- **ONION Architecture:** Highly Modular structure. Breakdown of API endpoints into Logical Units related to business model.
-  - Controllers: Gateway to the endpoint. They are the delegators of work.
-  - Services: To handle business logic. 
-  - Repository/Dao: Although not the same, they essentially perform operations on database and provide tools for service layer to implement its logic.
-  - Domain/Models: Represents the database tables and views.
-
 ## Libraries:
 
 - **FASTAPI** 
@@ -21,6 +11,16 @@
 - Postgresql
 - SQLAlchemy: db abstraction
 - OAUth2: Security.
+
+## Architecture
+
+![screenshot](./Onion_Arch.png)
+
+- **ONION Architecture:** Highly Modular structure. Breakdown of API endpoints into Logical Units related to business model.
+  - Controllers: Gateway to the endpoint. They are the delegators of work.
+  - Services: To handle business logic. 
+  - Repository/Dao: Although not the same, they essentially perform operations on database and provide tools for service layer to implement its logic.
+  - Domain/Models: Represents the database tables and views.
 
 ## Features / Best Practices
 
