@@ -1,5 +1,5 @@
 ## Overview
-- This project is a simulation of real-world bank. It follows the best practices needed to design scalable, secure and efficient backend API endpoints in FastAPI (python).
+- This project is a simulation of real-world bank application. It follows the best practices needed to design scalable, secure and efficient backend API endpoints in FastAPI (python).
 
 ## Architecture
 
@@ -10,6 +10,9 @@
   - Services: To handle business logic. 
   - Repository/Dao: Although not the same, they essentially perform operations on database and provide tools for service layer to implement its logic.
   - Domain/Models: Represents the database tables and views.
+
+## Features
+
 - **Secure API's:** API should only be accessed by users with appropriate access.
 - **Strict Typing:** Request and Response Bodies have a pydantic model typing to them. This ensures 
 - **Error Handling:** try-catch. Errors are raised in each layer which bubbles up in the catch block within the main controller.
