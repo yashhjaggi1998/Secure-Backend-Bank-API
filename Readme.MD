@@ -14,7 +14,7 @@
 ## Features
 
 - **Secure API's:** API should only be accessed by users with appropriate access.
-- **Strict Typing:** Request and Response Bodies have a pydantic model typing to them. This ensures 
+- **Strict Typing:** Request and Response Bodies have a pydantic model typing to them. This ensures type checks for early error detection.
 - **Error Handling:** try-catch. Errors are raised in each layer which bubbles up in the catch block within the main controller.
 - **Asynchronous behavior:** FASTAPI works on ASGI server, which is well suited for asynchronous behavior, something essential when working with ML or Language models.
 - **Designed for scalability:** modularization and segregating functionality allows to build a highly scalable yet maintainble codebase.
