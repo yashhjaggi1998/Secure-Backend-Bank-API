@@ -18,5 +18,6 @@
 - **Error Handling:** try-catch. Errors are raised in each layer which bubbles up in the catch block within the main controller.
 - **Asynchronous behavior:** FASTAPI works on ASGI server, which is well suited for asynchronous behavior, something essential when working with ML or Language models.
 - **Designed for scalability:** modularization and segregating functionality allows to build a highly scalable yet maintainble codebase. Use of FASTAPI enhances scalability for ML based applications.
+- **Handles asynchronous & concurrent requests due to FASTAPI**
 - **API documentation:** FastAPI allows for a ready-made swagger implmentation.
 - **Soft deletes:** Never delete any sensitive data. Rather mark it as delete using flag but make sure it appears to be deleted.
