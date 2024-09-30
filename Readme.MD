@@ -6,4 +6,4 @@
 - API documentation
 - Soft deletes
 
-![screenshot] (https://github.com/yashhjaggi1998/Secure-Backend-Bank-API/blob/2312d30fd3b8338a85a830d1d3f7d7b71a94c3ef/Onion%20Arch.png)
+![screenshot] (https://raw.githubusercontent.com/yashhjaggi1998/Secure-Backend-Bank-API/2312d30fd3b8338a85a830d1d3f7d7b71a94c3ef/Onion%20Arch.png)
