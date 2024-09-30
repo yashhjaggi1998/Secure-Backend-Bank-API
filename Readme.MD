@@ -6,4 +6,4 @@
 - API documentation
 - Soft deletes
 
-![screenshot] (./Onion Arch.png)
+![screenshot](./Onion_Arch.png)
