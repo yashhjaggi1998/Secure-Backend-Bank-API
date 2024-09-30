@@ -13,7 +13,7 @@
 
 ## Libraries:
 
-- ** FASTAPI** 
+- **FASTAPI** 
   1. fast
   2. strict typing ... (pydantic models)
   3. asynchronous & concurrent request handling ... (really useful for ML inference models)
